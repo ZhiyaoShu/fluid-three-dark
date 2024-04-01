@@ -31,19 +31,19 @@ export default class Simulation{
         };
 
         this.options = {
-            iterations_poisson: 32,
-            iterations_viscous: 32,
+            iterations_poisson: 16,
+            iterations_viscous: 64,
             mouse_force: 20,
             resolution: 0.5,
-            cursor_size: 100,
-            viscous: 30,
+            cursor_size: 200,
+            viscous: 200,
             isBounce: false,
             dt: 0.014,
-            isViscous: false,
+            isViscous: true,
             BFECC: true
         };
 
-        const controls = new Controls(this.options);
+        // const controls = new Controls(this.options);
 
         this.fboSize = new THREE.Vector2();
         this.cellScale = new THREE.Vector2();

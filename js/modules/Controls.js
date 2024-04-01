@@ -4,6 +4,7 @@ export default class Controls{
     constructor(params){
         this.params = params;
         this.init();
+        this.time = 0;
     }
 
     init(){
@@ -17,6 +18,10 @@ export default class Controls{
         this.gui.add(this.params, "dt", 1/200, 1/30);
         this.gui.add(this.params, 'BFECC');
         this.gui.close();
+    }
+
+    update(){
+        this.time += dt ;
     }
 
 }

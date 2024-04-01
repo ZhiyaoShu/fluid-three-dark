@@ -1,15 +1,20 @@
 precision highp float;
 
-uniform vec2 force;
+uniform vec2 force; 
+uniform vec2 constantForce; // new uniform for constant force
 uniform vec2 center;
 uniform vec2 scale;
 uniform vec2 px;
 varying vec2 vUv;
 
-void main(){
+void main() {
     vec2 circle = (vUv - 0.5) * 2.0;
-    float d = 1.0-min(length(circle), 1.0);
+    float d = 1.0 - min(length(circle), 1.0);
     d *= d;
-    vec3 deepBlue = vec3(14.0 / 255.0, 36.0 / 255.0, 71.0 / 255.0);
-    gl_FragColor = vec4(force * d, 0, 1);
+
+    // Add the constant force to the dynamically calculated force
+    vec2 totalForce = force * d + constantForce;
+
+    gl_FragColor = vec4(totalForce, 0, 1);
 }
+
