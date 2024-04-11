@@ -5,7 +5,7 @@ varying vec2 uv;
 void main(){
     vec2 vel = texture2D(velocity, uv).xy;
     float len = length(vel);
-    vel = vel * 0.5 + 0.5;
+    vel = vel * 0.2 + 0.2;
     
     vec3 color = mix(vec3(0.0), vec3(0, vel.y, 1), len);
 

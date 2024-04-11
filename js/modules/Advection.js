@@ -7,8 +7,8 @@ import ShaderPass from "./ShaderPass";
 import * as THREE from "three";
 
 
-export default class Advection extends ShaderPass{
-    constructor(simProps){
+export default class Advection extends ShaderPass {
+    constructor(simProps) {
         super({
             material: {
                 vertexShader: face_vert,
@@ -31,6 +31,15 @@ export default class Advection extends ShaderPass{
                     },
                     isBFECC: {
                         value: true
+                    },
+                    texelSize: {
+                        value: new THREE.Vector2(1 / simProps.fboSize.width, 1 / simProps.fboSize.height)
+                    },
+                    dyeTexelSize: {
+                        value: new THREE.Vector2(1 / simProps.fboSize.width, 1 / simProps.fboSize.height)
+                    },
+                    dissipation: {
+                        value: 0.98
                     }
                 },
             },
@@ -40,12 +49,13 @@ export default class Advection extends ShaderPass{
         this.init();
     }
 
-    init(){
+    // 设置边界和场景
+    init() {
         super.init();
         this.createBoundary();
     }
 
-    createBoundary(){
+    createBoundary() {
         const boundaryG = new THREE.BufferGeometry();
         const vertices_boundary = new Float32Array([
             // left
@@ -64,7 +74,7 @@ export default class Advection extends ShaderPass{
             1, -1, 0,
             -1, -1, 0
         ]);
-        boundaryG.setAttribute( 'position', new THREE.BufferAttribute( vertices_boundary, 3 ) );
+        boundaryG.setAttribute('position', new THREE.BufferAttribute(vertices_boundary, 3));
 
         const boundaryM = new THREE.RawShaderMaterial({
             vertexShader: line_vert,
@@ -76,9 +86,9 @@ export default class Advection extends ShaderPass{
         this.scene.add(this.line);
     }
 
-    update({ dt, isBounce, BFECC }){
+    update({ dt, isBounce, BFECC }) {
 
-        this.uniforms.dt.value = dt;
+        this.uniforms.dt.value = dt;    
         this.line.visible = isBounce;
         this.uniforms.isBFECC.value = BFECC;
 
