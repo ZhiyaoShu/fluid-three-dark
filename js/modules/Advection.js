@@ -39,7 +39,7 @@ export default class Advection extends ShaderPass {
                         value: new THREE.Vector2(1 / simProps.fboSize.width, 1 / simProps.fboSize.height)
                     },
                     dissipation: {
-                        value: 0.98
+                        value: 0.58
                     }
                 },
             },
@@ -59,7 +59,7 @@ export default class Advection extends ShaderPass {
         const boundaryG = new THREE.BufferGeometry();
         const vertices_boundary = new Float32Array([
             // left
-            -1, -1, 0,
+            -1, 1, 0,
             -1, 1, 0,
 
             // top
